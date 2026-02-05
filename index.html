@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You ❤️ (Audit Mode)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-pastel: #fff0f5;
+            --card-bg: #ffffff;
+            --primary-pink: #ffadd2;
+            --secondary-pink: #ff8fa3;
+            --text-soft: #776b72;
+            --log-bg: #ffe6ee;
+            --log-text: #d65a7e;
+        }
+        body {
+            background-color: var(--bg-pastel);
+            color: var(--text-soft);
+            font-family: 'Nunito', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            background-image: radial-gradient(#ffdee9 20%, transparent 20%), radial-gradient(#ffdee9 20%, transparent 20%);
+            background-position: 0 0, 50px 50px;
+            background-size: 100px 100px;
+        }
+        .container {
+            background: var(--card-bg);
+            border-radius: 30px;
+            padding: 2rem 3rem;
+            box-shadow: 0 15px 35px rgba(255, 173, 210, 0.25);
+            text-align: center;
+            max-width: 420px;
+            width: 85%;
+            position: relative;
+            z-index: 10;
+            margin-bottom: 20px;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+        /* Custom Scrollbar */
+        .container::-webkit-scrollbar { width: 5px; }
+        .container::-webkit-scrollbar-thumb { background: var(--primary-pink); border-radius: 10px; }
+
+        h1 { color: var(--secondary-pink); font-weight: 700; margin-bottom: 1rem; font-size: 1.5rem; }
+        p { font-size: 1rem; line-height: 1.6; margin-bottom: 1.5rem; }
+        
+        .btn-group { display: flex; gap: 15px; justify-content: center; margin-top: 20px; }
+        button {
+            background-color: var(--primary-pink); color: white; border: none;
+            padding: 12px 30px; font-size: 1rem; font-weight: 700;
+            border-radius: 50px; cursor: pointer; transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 173, 210, 0.4);
+            margin-top: 10px;
+        }
+        button:hover { background-color: var(--secondary-pink); transform: translateY(-3px); }
+        
+        #no-btn {
+            background-color: #e0e0e0; color: #888; box-shadow: none;
+            position: absolute; transition: all 0.1s ease;
+        }
+        #no-btn:hover { background-color: #d0d0d0; transform: none; }
+
+        /* Log Style */
+        #audit-log-container {
+            width: 90%; max-width: 420px;
+            background: var(--log-bg);
+            border-radius: 15px;
+            padding: 10px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.75rem;
+            color: var(--log-text);
+            height: 80px;
+            overflow-y: auto;
+            display: none;
+        }
+        .log-entry { margin: 2px 0; }
+        .log-timestamp { color: var(--secondary-pink); font-weight: bold;}
+
+        /* Form Style */
+        .input-group { text-align: left; margin-bottom: 15px; width: 100%; }
+        label { display: block; font-weight: bold; color: var(--secondary-pink); margin-bottom: 5px; font-size: 0.9rem;}
+        input {
+            width: 100%; padding: 8px 12px; margin-bottom: 8px;
+            border: 2px solid #ffdee9; border-radius: 10px;
+            font-family: 'Nunito', sans-serif; box-sizing: border-box;
+            transition: 0.3s; font-size: 0.9rem;
+        }
+        input:focus { outline: none; border-color: var(--primary-pink); }
+        .shake-input { animation: quickShake 0.3s; border-color: #ff6b6b; }
+
+        @keyframes quickShake {
+            0% { transform: translateX(0); } 25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); } 75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+        
+        /* Animation: Soft Vibration (แก้ให้เบาลง) */
+        @keyframes shake {
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(1px, 1px); }
+            50% { transform: translate(-1px, -1px); }
+            75% { transform: translate(-1px, 1px); }
+            100% { transform: translate(1px, -1px); }
+        }
+
+        .hidden { display: none !important; }
+        .heart-icon { font-size: 2.5rem; color: var(--secondary-pink); margin-bottom: 10px; display: block;}
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div id="step1">
+        <span class="heart-icon">💌</span>
+        <h1>มีข้อความถึงน้องปาร์ตี้</h1>
+        <p>ช่วงนี้พี่อาจจะยุ่งๆขึ้นน้าาาแต่ไม่ลืมเราหรอก<br>แต่มีเรื่องสำคัญอยากจะถาม...</p>
+        <button onclick="nextStep(2)">เรื่องอะไรเหรอ? (คลิก)</button>
+    </div>
+
+    <div id="step2" class="hidden">
+        <h1>วาเลนไทน์ปีนี้...</h1>
+        <p>can you be mine valentine ?</p>
+        <p style="font-size: 0.8rem; color: #aaa;">(Warning: ระบบกำลังจับตาดูความจริงใจ)</p>
+        <div class="btn-group" style="position: relative; height: 60px;"> 
+             <button id="yes-btn" onclick="nextStep(3)">ตกลงครับ ❤️</button>
+             <button id="no-btn" onmouseover="moveButton()">ไม่เอาอ่ะ</button>
+        </div>
+    </div>
+
+    <div id="step3" class="hidden">
+        <h1>🔍 ขอเหตุผลหน่อยครับ</h1>
+        <p>ระบบต้องการข้อมูลเพื่อยืนยัน (Audit Phase)</p>
+        
+        <div class="input-group">
+            <label id="q1-label">1. ทำไมถึงตกลง? (ขอ 3 ข้อ)</label>
+            <input type="text" id="a1" placeholder="1. เพราะ..." required>
+            <input type="text" id="a2" placeholder="2. เพราะ..." required>
+            <input type="text" id="a3" placeholder="3. เพราะ..." required>
+        </div>
+
+        <div class="input-group">
+            <label id="q2-label">2. ชอบพี่จิระตรงไหน? (ขอ 3 ข้อ)</label>
+            <input type="text" id="b1" placeholder="1. ตรงที่..." required>
+            <input type="text" id="b2" placeholder="2. ตรงที่..." required>
+            <input type="text" id="b3" placeholder="3. ตรงที่..." required>
+        </div>
+
+        <button onclick="submitForm()">ยืนยันข้อมูล (Submit)</button>
+    </div>
+
+    <div id="step4" class="hidden">
+        <span class="heart-icon">🎉</span>
+        <h1>Audit Passed! ✅</h1>
+        <p>เย่ ส่งคำตอบนี้ให้พี่จิระแล้ว!<br>
+        <p>พี่คิดถึงหนูน้าาาา</p>
+        <p style="font-size: 0.8rem; color: #aaa;"></p>
+    </div>
+</div>
+
+<div id="audit-log-container"></div>
+
+<script>
+    let moveCount = 0; 
+    let scaleSize = 1;
+
+    function nextStep(step) {
+        document.querySelectorAll('.container > div').forEach(div => {
+            div.classList.add('hidden');
+        });
+        document.getElementById('step' + step).classList.remove('hidden');
+        
+        if(step === 2) {
+             const noBtn = document.getElementById('no-btn');
+             noBtn.style.position = 'relative';
+             noBtn.style.left = 'auto'; noBtn.style.top = 'auto';
+             document.getElementById('audit-log-container').style.display = 'block';
+             addLog("System initialized. Monitoring compliance...");
+        }
+        if(step === 3) {
+             document.body.style.animation = 'none'; // หยุดสั่นตอนกรอกฟอร์ม
+             addLog("User accepted. Initiating Questionnaire Audit...");
+        }
+        if(step === 4) {
+             document.getElementById('audit-log-container').style.display = 'none';
+        }
+    }
+
+function submitForm() {
+        const inputs = document.querySelectorAll('#step3 input[type="text"]');
+        let allFilled = true;
+        
+        // ตรวจสอบว่ากรอกครบไหม
+        inputs.forEach(input => {
+            if(input.value.trim() === "") {
+                allFilled = false;
+                input.classList.add('shake-input');
+                setTimeout(() => input.classList.remove('shake-input'), 500);
+            }
+        });
+
+        if(allFilled) {
+            // เปลี่ยนปุ่มเป็นสถานะ "กำลังส่ง..."
+            const btn = document.querySelector('#step3 button');
+            const originalText = btn.innerText;
+            btn.innerText = "กำลังส่งข้อมูล... (Sending)";
+            btn.disabled = true;
+            btn.style.opacity = "0.7";
+
+            // เตรียมข้อมูลส่ง
+            const formData = new FormData();
+            formData.append('Reason_1', document.getElementById('a1').value);
+            formData.append('Reason_2', document.getElementById('a2').value);
+            formData.append('Reason_3', document.getElementById('a3').value);
+            formData.append('Like_1', document.getElementById('b1').value);
+            formData.append('Like_2', document.getElementById('b2').value);
+            formData.append('Like_3', document.getElementById('b3').value);
+            
+            // --- ส่วนสำคัญ: ยิงไป Formspree ---
+            // ⚠️ อย่าลืมแก้ตรง 'YOUR_FORM_ID' เป็นรหัสที่คุณได้จากเว็บ Formspree นะครับ
+            fetch("https://formspree.io/f/xpqjadze", {
+                method: "POST",
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    // ถ้าส่งสำเร็จ ให้ไปหน้าจบ
+                    nextStep(4);
+                } else {
+                    // ถ้ามีปัญหา (เช่น ลืมเปลี่ยน ID)
+                    response.json().then(data => {
+                        if (Object.hasOwn(data, 'errors')) {
+                            alert("ส่งไม่ไปแฮะ: " + data["errors"].map(error => error["message"]).join(", "));
+                        } else {
+                            alert("ระบบส่งเมลขัดข้อง (Server Error) แคปหน้าจอส่งพี่จิระแทนนะ!");
+                        }
+                    });
+                    // คืนค่าปุ่ม
+                    btn.innerText = originalText;
+                    btn.disabled = false;
+                }
+            }).catch(error => {
+                alert("เน็ตหลุดรึเปล่า? ส่งไม่ได้ครับ");
+                console.error(error);
+                btn.innerText = originalText;
+                btn.disabled = false;
+            });
+
+        } else {
+            addLog("[ERROR] Validation Failed. Missing fields.");
+            alert("กรอกให้ครบก่อนสิครับ จะรีบไปไหน! 😉");
+        }
+    }
+
+    function moveButton() {
+        moveCount++;
+        const btn = document.getElementById('no-btn');
+        const yesBtn = document.getElementById('yes-btn');
+        const container = document.querySelector('.container'); 
+        
+        btn.style.position = 'absolute';
+        scaleSize += 0.05;
+        yesBtn.style.transform = `scale(${scaleSize})`;
+        
+        // สั่นเบาลงมาก (Vibration)
+        if(moveCount > 15) { document.body.style.animation = "shake 0.2s infinite"; }
+
+        const maxX = container.offsetWidth - btn.offsetWidth - 30; 
+        const maxY = container.offsetHeight - btn.offsetHeight - 30;
+        const x = Math.random() * maxX + 15; 
+        const y = Math.random() * maxY + 15;
+        
+        btn.style.left = x + 'px';
+        btn.style.top = y + 'px';
+
+        if(moveCount > 3 && moveCount <= 6) btn.innerText = "แน่ใจเหรอ?";
+        else if (moveCount > 6 && moveCount <= 10) btn.innerText = "เหนื่อยยัง?";
+        else if (moveCount > 10 && moveCount <= 14) { btn.innerText = "ปุ่มนี้เสียนะ"; btn.style.backgroundColor = "#ff6b6b"; btn.style.color = "white"; }
+        else if (moveCount > 14 && moveCount <= 17) btn.innerText = "ยังอีกหรอออ";
+        else if (moveCount > 17 && moveCount <= 22) btn.innerText = "หยุดตามได้แล้ววว";
+        else if (moveCount > 22 && moveCount <= 25) btn.innerText = "อย่าตามมานะ !!!";
+        else if (moveCount > 25 && moveCount <= 29) btn.innerText = "แง้งงงงงงงงง";
+        else if (moveCount > 29 && moveCount <= 35) btn.innerText = "พี่จิระจะร้องไห้นะ";
+        else if (moveCount > 35) { btn.innerText = "กดตกลงเถอะะะ"; if(moveCount > 40) { btn.style.opacity = "0"; btn.style.pointerEvents = "none"; } }
+
+        addLog(`[ALERT] Attempt to evade detected. Count: ${moveCount}`);
+    }
+
+    function addLog(message) {
+        const logContainer = document.getElementById('audit-log-container');
+        const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second:'2-digit' });
+        logContainer.innerHTML += `<div class="log-entry"><span class="log-timestamp">[${time}]</span> ${message}</div>`;
+        logContainer.scrollTop = logContainer.scrollHeight; 
+    }
+</script>
+
+</body>
+</html>
